@@ -1,0 +1,22 @@
+<!-- Model Lookup Page -->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Choose A {{make}} Model</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+<ion-searchbar
+  [(ngModel)]="modelFilter" placeholder="Filter Vehicle Models">
+</ion-searchbar>
+<ion-list>
+  <ion-item *ngFor="let model of models | filter: 'name' : modelFilter" [navPush]="yearLookupPage" [navParams]="model">
+    {{model.name}}
+  </ion-item>
+
+</ion-list>
+
+</ion-content>

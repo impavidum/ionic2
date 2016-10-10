@@ -1,25 +1,21 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>EDMUNDS</ion-title>
+    </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
 
-  <ion-slides pager>
+    <ion-card [navPush]="makeLookupPage">
+        <img src="http://drewphillipsphotography.com/blog/wp-content/uploads/2016/04/ams-alpha-10-audi-r8.jpg" />
+        <div class="card-title">Find A Car</div>
+        <div class="card-subtitle">Over 1.4M Listings</div>
+    </ion-card>
 
-  <ion-slide style="background-color: green">
-    <h2>Slide 1</h2>
-  </ion-slide>
-
-  <ion-slide style="background-color: blue">
-    <h2>Slide 2</h2>
-  </ion-slide>
-
-  <ion-slide style="background-color: red">
-    <h2>Slide 3</h2>
-  </ion-slide>
-
-</ion-slides>
+    <ion-card [navPush]="vinLookupPage">
+        <img src="http://limousinereleasedate.com/wp-content/uploads/2016/01/2017-Honda-Civic-interior-leather-front-and-rear-seats-cabin.jpg" />
+        <div class="card-title">Search By VIN</div>
+        <div class="card-subtitle">Quickly Decode Any VIN</div>
+    </ion-card>
 
 </ion-content>

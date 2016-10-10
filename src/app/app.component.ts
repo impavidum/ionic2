@@ -2,11 +2,16 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 
+// Providers
+import {Edmunds} from '../providers/edmunds';
+
+// Pages
 import { TabsPage } from '../pages/tabs/tabs';
 
 
 @Component({
-  template: `<ion-nav [root]="rootPage"></ion-nav>`
+    template: `<ion-nav [root]="rootPage"></ion-nav>`,
+    providers: [Edmunds]
 })
 export class MyApp {
   rootPage = TabsPage;

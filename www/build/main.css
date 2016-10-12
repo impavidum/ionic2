@@ -21110,6 +21110,49 @@ page-contact .card-background-page .card-subtitle {
   color: #fff;
 }
 
+page-drivers ion-item ion-thumbnail img {
+  border-radius: 50%;
+}
+
+page-drivers ion-item button {
+  background-color: transparent;
+}
+
+page-drivers ion-item p {
+  font-size: 1rem !important;
+  text-transform: uppercase;
+  color: #494949;
+}
+
+page-drivers ion-item .a {
+  color: green;
+}
+
+page-drivers ion-item .b {
+  color: limegreen;
+}
+
+page-drivers ion-item .c {
+  color: orangered;
+}
+
+page-drivers ion-item .d {
+  color: red;
+}
+
+page-drivers ion-item .company-name {
+  font-size: .8rem;
+  text-transform: capitalize;
+  color: #8c8e8f;
+}
+
+page-driving-log h1 {
+  color: #8c8e8f;
+  font-size: 1em;
+  margin-top: 2.5em;
+  margin-left: 12px;
+}
+
 page-home ion-navbar .toolbar-title {
   color: grey;
 }
@@ -21241,4 +21284,16 @@ page-vehicle-detail .border-right {
 
 page-vehicle-detail .no-margin-top {
   margin-top: 3px;
+}
+
+page-vin-lookup h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  color: #8c8e8f;
+  white-space: nowrap;
+  font-size: 1.5rem;
+  text-transform: uppercase;
 }

@@ -2,7 +2,8 @@ import {
     Component
 } from '@angular/core';
 import {
-    NavController
+    NavController,
+    NavParams
 } from 'ionic-angular';
 
 
@@ -22,29 +23,55 @@ import * as echarts from '../../assets/echarts/echarts'
 
 export class DrivingLog {
 
-    constructor(public navCtrl: NavController) {
-
+    constructor(public navCtrl: NavController, params: NavParams) {
+        console.log(params);
+        this.driver = params.data;
     }
 
     ngOnInit() {
-        //        var echarts = echarts.default;
-        console.log(echarts)
 
+        // Create Chart
         let basic_lines = echarts.default.init(document.getElementById('chart'));
 
+        // Chart Options
         let option = {
             color: ['#34314c'],
+            //            tooltip: {
+            //                trigger: 'axis',
+            //                axisPointer: {
+            //                    type: 'shadow'
+            //                }
+            //            },
             tooltip: {
-                trigger: 'axis',
-                axisPointer: { // 坐标轴指示器，坐标轴触发有效
-                    type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-                }
+                show: false
+                    //                formatter: function (params) {
+                    //                    return '<b>' + params[0].data '</b> on ' + params[0].name;
+                    //                },
+                    //                trigger: 'axis',
+                    //                backgroundColor: 'white',
+                    //                textStyle: {
+                    //                    color: color.mdgrey
+                    //                },
+                    //                extraCssText: ' box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);background-color: white;color:' + color.mdgrey + ';font-size: 1.1em;',
+                    //                axisPointer: {
+                    //                    type: 'shadow',
+                    //                    lineStyle: {
+                    //                        color: color.ltgrey,
+                    //                        type: 'solid'
+                    //                    },
+                    //                    crossStyle: {
+                    //                        color: '#27727B'
+                    //                    },
+                    //                    shadowStyle: {
+                    //                        color: 'rgba(200,200,200,0.3)'
+                    //                    }
+                    //                }
             },
             grid: {
-                left: '0%',
-                top: '0%',
-                right: '0%',
-                bottom: '10%',
+                left: '0',
+                top: '0',
+                right: '0',
+                bottom: '32',
                 containLabel: false
             },
             xAxis: [
@@ -54,6 +81,16 @@ export class DrivingLog {
                     axisTick: {
                         alignWithLabel: true,
                         show: false
+                    },
+                    splitLine: {
+                        show: false,
+                        lineStyle: {
+                            color: ['red']
+                        }
+
+                    },
+                    axisLine: {
+                        show: false
                     }
 
                         }
@@ -61,6 +98,12 @@ export class DrivingLog {
             yAxis: [
                 {
                     type: 'value',
+                    splitLine: {
+                        lineStyle: {
+                            color: ['#e7e7e7']
+                        }
+
+                    },
                     axisLine: {
                         show: false
                     },
@@ -70,31 +113,51 @@ export class DrivingLog {
                     axisLabel: {
                         show: false
                     },
+
                     max: 100
                         }
                     ],
             series: [
                 {
-                    name: '直接访问',
+                    name: 'Driving Quality',
                     type: 'bar',
+                    animationDelay: function (idx) {
+                        return idx * 100;
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'insideTop',
+                            formatter: function (params) {
+                                if (!params.data) {
+                                    return '-';
+                                } else if (params.data > 79) {
+                                    return 'A';
+                                } else if (params.data > 59) {
+                                    return 'B';
+                                } else if (params.data > 39) {
+                                    return 'C';
+                                } else if (params.data > 19) {
+                                    return 'D';
+                                } else {
+                                    return 'F';
+                                }
+                            }
+                        }
+                    },
                     barWidth: '60%',
-                    data: [50, 85, 75, 60, 90, 75, 95]
+                    data: [38, 57, 75, 69, 90, 75, 95]
                         }
                     ]
         };
 
-
+        // Build Chart
         basic_lines.setOption(option);
+
     }
 
     ionViewDidLoad() {
-        //        var echarts = echarts.default;
-        //        console.log(echarts);
-        //        setTimeout(function () {
-        //            let basic_lines = echarts.init(document.getElementById('#chart'));
-        //
 
-        //        }, 2000)
 
     }
 

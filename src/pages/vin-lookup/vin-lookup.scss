@@ -1,6 +1,9 @@
 page-vin-lookup {
-
-//    ion-searchbar {
-//        @include v-center;
-//    }
+    h1 {
+        @include centerer(absolute);
+        color: $balanced;
+        white-space: nowrap;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+    }
 }

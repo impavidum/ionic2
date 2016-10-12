@@ -1,19 +1,14 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/v2/theming/
 @import "ionic.globals";
-
-
 // Shared Variables
 // --------------------------------------------------
 // To customize the look and feel of this app, you can override
 // the Sass variables found in Ionic's source scss files.
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
-
-$text-color:        #000;
-$background-color:  #fff;
-
-
+$text-color : #000;
+$background-color : #fff;
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.
@@ -21,31 +16,41 @@ $background-color:  #fff;
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
-
-$colors: (
-  primary:    #34314c,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222,
-  favorite:   #69BB7B
-);
-
-
+$colors: ( primary : #34314c, secondary : #32db64, danger : #f53d3d, light : #f4f4f4, dark : #222, favorite : #69BB7B);
+// Imported
+$ltgrey: #e7e7e7 !default;
+$mdgrey: #494949 !default;
+$dkgrey: #101010 !default;
+$mdgreyeight: #8c8e8f !default;
+$mdgreytwo: #2e2e2e !default;
+$light: #fff !default;
+$stable: #f8f8f8 !default;
+$positive: #f7e300 !default;
+$calm: #11c1f3 !default;
+$balanced: #8c8e8f !default;
+$energized: #ffc900 !default;
+$assertive: #E2581B !default;
+$royal: #886aea !default;
+$dark: #444 !default;
+$black: #000 !default;
+$peter: #3EA5B3 !default;
+$white: #fff !default;
+$background: lighten($ltgrey, 5%);
+$gradient: lighten($dkgrey, 7%);
+$softgrey: #B3B4B5;
+$bulk: #494949;
+$tone: #3EA5B3;
+$burn: #E2581B;
 // App Theme
 // --------------------------------------------------
 // Ionic apps can have different themes applied, which can
 // then be future customized. This import comes last
 // so that the above variables are used and Ionic's
 // default are overridden.
-
 @import "ionic.theme.default";
-
-
 // Ionicons
 // --------------------------------------------------
 // The premium icon font for Ionic. For more info, please see:
 // http://ionicframework.com/docs/v2/ionicons/
-
 $ionicons-font-path: "../assets/fonts";
 @import "ionicons";

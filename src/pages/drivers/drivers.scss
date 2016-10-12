@@ -1,0 +1,34 @@
+page-drivers {
+    ion-item {
+        ion-thumbnail {
+            img {
+                border-radius: 50%;
+            }
+        }
+        button {
+            background-color: transparent;
+        }
+        p {
+            font-size: 1rem !important;
+            text-transform: uppercase;
+            color: $mdgrey;
+        }
+        .a {
+            color: green
+        }
+        .b {
+            color: limegreen
+        }
+        .c {
+            color: orangered
+        }
+        .d {
+            color: red
+        }
+        .company-name {
+            font-size: .8rem;
+            text-transform: capitalize;
+            color: $balanced;
+        }
+    }
+}

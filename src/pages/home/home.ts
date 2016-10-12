@@ -46,4 +46,8 @@ export class HomePage {
         this.navCtrl.parent.select(2);
     }
 
+    viewDrivers() {
+        this.navCtrl.parent.select(3);
+    }
+
 }

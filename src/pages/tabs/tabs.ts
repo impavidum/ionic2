@@ -12,8 +12,8 @@ import {
     VinLookup
 } from '../vin-lookup/vin-lookup';
 import {
-    DrivingLog
-} from '../driving-log/driving-log';
+    Drivers
+} from '../drivers/drivers';
 
 @Component({
     templateUrl: 'tabs.html'
@@ -24,7 +24,7 @@ export class TabsPage {
     tab1Root: any = HomePage;
     tab2Root: any = MakeLookup;
     tab3Root: any = VinLookup;
-    tab4Root: any = DrivingLog;
+    tab4Root: any = Drivers;
 
     constructor() {
 

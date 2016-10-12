@@ -7,12 +7,40 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>Driving Log</ion-title>
+        <ion-title>{{driver.name}}</ion-title>
     </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-    <div id="chart" style="height: 200px;"></div>
+<ion-content>
+    <h1>Driving Quality</h1>
+    <ion-card>
+        <ion-item>
+            <span item-left>This Week</span>
+            <span item-right>overall: <b>B</b></span>
+        </ion-item>
+        <div style="height: 200px;" id="chart"></div>
+    </ion-card>
+
+    <h1>Driving Log</h1>
+    <ion-card>
+        <ion-item>
+            <span item-left>18 min</span>
+            <span item-left>(2.6 mi)</span>
+            <span item-right>Driving Quality: <b>A+</b></span>
+        </ion-item>
+        <img src="http://i.stack.imgur.com/fqKSl.png">
+
+    </ion-card>
+
+    <ion-card>
+<ion-item>
+    <span item-left>45 min</span>
+    <span item-left>(12.6 mi)</span>
+    <span item-right>Driving Quality: <b>A</b></span>
+</ion-item>
+        <img src="http://i.stack.imgur.com/fqKSl.png">
+
+    </ion-card>
 </ion-content>

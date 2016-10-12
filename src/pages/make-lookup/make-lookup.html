@@ -1,25 +1,24 @@
 <!-- Make Lookup Page -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Choose A Make</ion-title>
+    <ion-navbar>
+        <ion-title>Select A Make</ion-title>
 
-  </ion-navbar>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-<ion-searchbar
-  [(ngModel)]="makeFilter" placeholder="Filter Vehicle Makes">
-</ion-searchbar>
-<!-- [showCancelButton]="shouldShowCancel"
+    <ion-searchbar [(ngModel)]="makeFilter" placeholder="Filter Vehicle Makes">
+    </ion-searchbar>
+    <!-- [showCancelButton]="shouldShowCancel"
   (ionInput)="onInput($event)"
   (ionCancel)="onCancel($event)" -->
-<ion-list>
-  <ion-item *ngFor="let make of makes | filter: 'name' : makeFilter" [navPush]="modelLookupPage" [navParams]="make">
-    {{make.name}}
-  </ion-item>
-</ion-list>
+    <ion-list>
+        <ion-item *ngFor="let make of makes | filter: 'name' : makeFilter" [navPush]="modelLookupPage" [navParams]="make">
+            {{make.name}}
+        </ion-item>
+    </ion-list>
 
 </ion-content>

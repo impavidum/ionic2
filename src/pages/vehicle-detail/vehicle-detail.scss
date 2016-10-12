@@ -1,0 +1,84 @@
+page-vehicle-detail {
+    // Vehicle top detail card
+    .detail-card {
+        .item-inner {
+            border-bottom: 0 !important;
+        }
+        span {
+            margin-right: .5em;
+        }
+        .name {
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #424240;
+        }
+        .right {
+            float: right;
+            color: #95A5A6;
+        }
+    }
+    .style-select {
+        padding-left: 0;
+        ion-select {
+            padding: 10px;
+            max-width: 100%;
+        }
+    }
+    // Vehicle MPG
+    .detail {
+        text-align: center;
+        position: relative;
+        height: 6.5em;
+        .detail-label {
+            width: auto;
+            height: auto;
+            @include centerer(absolute);
+            ion-icon {
+                color: lighten(#95A5A6, 20%);
+                font-size: 2em;
+            }
+            h1 {
+                font-size: .9em;
+                font-weight: bold;
+                color: #95A5A6;
+            }
+            .light-green {
+                color: limegreen;
+            }
+            .dark-green {
+                color: green;
+            }
+            .red {
+                color: orangered;
+            }
+        }
+        .detail-content {
+            position: relative;
+            width: 100%;
+            text-align: center;
+            height: auto;
+            @include v-center(absolute);
+            h1 {
+                font-size: 1.5em;
+                font-weight: bold;
+                color: darken(#858885, 10%);
+            }
+            h2 {
+                font-size: 1em;
+                color: #95A5A6;
+                text-transform: lowercase;
+            }
+        }
+        img {
+            height: 20px;
+            width: auto;
+        }
+    }
+    // utility classes
+    .border-right {
+        border-right: 1px solid #DADFE1;
+    }
+    .no-margin-top {
+        margin-top: 3px;
+    }
+}

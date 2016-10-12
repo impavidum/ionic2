@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
-
+//import { HTTP_PROVIDERS } from '@angular2/http';
 // Providers
 import {Edmunds} from '../providers/edmunds';
 

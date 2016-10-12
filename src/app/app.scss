@@ -1,6 +1,4 @@
 // http://ionicframework.com/docs/v2/theming/
-
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,9 +12,27 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-
 @mixin v-center($position:relative) {
     position: $position;
     top: 50%;
     transform: translateY(-50%);
+}
+
+@mixin h-center($position:relative) {
+    position: $position;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@mixin centerer($position:relative) {
+    position: $position;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+ion-title {
+    .toolbar-title {
+        color: #424240;
+    }
 }

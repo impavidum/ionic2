@@ -76080,6 +76080,10 @@ var Edmunds = (function () {
     // Constructor function
     function Edmunds(http) {
         this.http = http;
+        this.publicKey = '3vv9n5g984xj6zgzq6ktedtz';
+        this.publicSecret = 'MYFXuGvDcTYQhJEUqXdkS49t';
+        this.exploratoryKey = 'adqrqkfj733axe6wt3tn3xdf';
+        this.exploratorySecret = 'gxXsBDdAf7r2ZbQ8nUKuGTxB';
     }
     // Returns a list of Vehicle Makes
     Edmunds.prototype.getMakeList = function () {
@@ -76095,12 +76099,111 @@ var Edmunds = (function () {
                 then on the response, it'll map the JSON data to a parsed JS object.
                 Next, we process the data and resolve the promise with the new data.
             */
-            _this.http.get('http://api.edmunds.com/api/vehicle/v2/makes?fmt=json&api_key=y42cz4xvvfrazaryyvpsd6g6')
+            _this.http.get('http://api.edmunds.com/api/vehicle/v2/makes?fmt=json&api_key=' + _this.publicKey)
                 .map(function (res) { return res.json(); })
                 .subscribe(function (data) {
                 _this.data = data;
                 resolve(_this.data);
             });
+        });
+    };
+    // Returns Style ID given Make/Model/Year
+    Edmunds.prototype.getByStyleId = function (styleId) {
+        var _this = this;
+        //        let [make, model, year] = options;
+        console.log(styleId);
+        //        let params = Object.assign({}, options);
+        // Already loaded data
+        //        if (this.data) {
+        //            return Promise.resolve(this.data);
+        //        }
+        // Don't have the data yet
+        return new Promise(function (resolve) {
+            /*
+                Using Angular HTTP provider to request the data,
+                then on the response, it'll map the JSON data to a parsed JS object.
+                Next, we process the data and resolve the promise with the new data.
+            */
+            console.log(styleId);
+            _this.http.get('https://api.edmunds.com/api/inventory/v2/inventories?zipcode=90404&fmt=json')
+                .map(function (res) { return res.json(); })
+                .subscribe(function (data) {
+                _this.data = data;
+                resolve(_this.data);
+            });
+        });
+    };
+    Edmunds.prototype.getVehicleDetail = function (vehicleDetails) {
+        var _this = this;
+        var year = vehicleDetails.year, make = vehicleDetails.make, model = vehicleDetails.model;
+        // Don't have the data yet
+        return new Promise(function (resolve) {
+            /*
+                Using Angular HTTP provider to request the data,
+                then on the response, it'll map the JSON data to a parsed JS object.
+                Next, we process the data and resolve the promise with the new data.
+            */
+            _this.http.get('https://api.edmunds.com/api/vehicle/v2/' + make + '/' + model + '/' + year + '/styles?view=full&fmt=json&api_key=' + _this.publicKey)
+                .map(function (res) { return res.json(); })
+                .subscribe(function (data) {
+                _this.data = data;
+                resolve(_this.data);
+            });
+        });
+    };
+    Edmunds.prototype.getPhotoByStyleId = function (styleId) {
+        var _this = this;
+        // Don't have the data yet
+        return new Promise(function (resolve) {
+            /*
+                Using Angular HTTP provider to request the data,
+                then on the response, it'll map the JSON data to a parsed JS object.
+                Next, we process the data and resolve the promise with the new data.
+            */
+            _this.http.get('https://api.edmunds.com/api/media/v2/styles/' + styleId + '/photos?api_key=' + _this.exploratoryKey + '&fmt=json')
+                .map(function (res) { return res.json(); })
+                .subscribe(function (data) {
+                _this.data = data;
+                resolve(_this.data);
+            });
+        });
+    };
+    // Returns Access Token from Edmunds
+    Edmunds.prototype.getAccessToken = function () {
+        var _this = this;
+        // Don't have the data yet
+        return new Promise(function (resolve) {
+            /*
+                Using Angular HTTP provider to request the data,
+                then on the response, it'll map the JSON data to a parsed JS object.
+                Next, we process the data and resolve the promise with the new data.
+            */
+            var body = JSON.stringify({});
+            var headers = new Headers({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            });
+            var options = new RequestOptions({
+                headers: headers
+            });
+            //
+            //return this.http.post(url, body, options)
+            //                .map(res =>  res.json().data)
+            //                .catch(this.handleError)
+            _this.http.post('https://api.edmunds.com/inventory/token?client_id=b5bfavyby2kzy3x5up7b9ucg &client_secret=n4PV4b5RJwRUYjZ5VETYh2Cq&grant_type=client_credentials', {}, options)
+                .map(function (res) { return res.json(); })
+                .subscribe(function (data) {
+                _this.data = data;
+                resolve(_this.data);
+            });
+            //            this.http.get('https://api.edmunds.com/inventory/token?client_id=y42cz4xvvfrazaryyvpsd6g6&client_secret=FkTnANvGvYXK3ctDvDkpESCw&grant_type=client_credentials')
+            //                .map(res => res.json())
+            //                .subscribe(data => {
+            //                    this.data = data;
+            //                    resolve(this.data);
+            //                });
+            /*
+            ApplicationEdmunds Demo Key: b5bfavyby2kzy3x5up7b9ucg Secret: n4PV4b5RJwRUYjZ5VETYh2Cq
+            */
         });
     };
     Edmunds = __decorate$107([
@@ -76109,6 +76212,108 @@ var Edmunds = (function () {
     ], Edmunds);
     return Edmunds;
     var _a;
+}());
+
+/* ion-compiler */
+var __decorate$110 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$5 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var HomePage = (function () {
+    // Pages for pushing onto Nav Stack
+    //    makeLookupPage = MakeLookup;
+    //    vinLookupPage = VinLookup;
+    // Constructor function
+    function HomePage(navCtrl, edmunds) {
+        this.navCtrl = navCtrl;
+        this.edmunds = edmunds;
+    }
+    HomePage.prototype.findACar = function () {
+        this.navCtrl.parent.select(1);
+    };
+    HomePage.prototype.searchVin = function () {
+        this.navCtrl.parent.select(2);
+    };
+    HomePage = __decorate$110([
+        Component({
+            selector: 'page-home', template: /* ion-inline-template */ '<ion-header>\n    <ion-navbar>\n        <ion-title>EDMUNDS</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n    <ion-card (click)="findACar()">\n        <img src="http://drewphillipsphotography.com/blog/wp-content/uploads/2016/04/ams-alpha-10-audi-r8.jpg" />\n        <div class="card-title">Find A Car</div>\n        <div class="card-subtitle">Over 1.4M Listings</div>\n    </ion-card>\n\n    <ion-card (click)="searchVin()">\n        <img src="http://limousinereleasedate.com/wp-content/uploads/2016/01/2017-Honda-Civic-interior-leather-front-and-rear-seats-cabin.jpg" />\n        <div class="card-title">Search By VIN</div>\n        <div class="card-subtitle">Quickly Decode Any VIN</div>\n    </ion-card>\n\n    <ion-card (click)="searchVin()">\n        <img src="https://images.unsplash.com/photo-1473445730015-841f29a9490b?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=e3a4a4ad1d2a90dc14e8e97e9d1c4120" />\n        <div class="card-title">Check My Driving</div>\n        <div class="card-subtitle">View Driving Quality Log</div>\n    </ion-card>\n\n</ion-content>\n'
+        }),
+        __metadata$5('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof Edmunds !== 'undefined' && Edmunds) === 'function' && _b) || Object])
+    ], HomePage);
+    return HomePage;
+    var _a, _b;
+}());
+
+/* ion-compiler */
+var __decorate$114 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$9 = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var VehicleDetail = (function () {
+    function VehicleDetail(navCtrl, params, edmunds) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.edmunds = edmunds;
+        // Attach navParams to scope
+        this.year = params.data.year.year;
+        this.make = params.data.make;
+        this.model = params.data.model;
+        this.edmunds.getVehicleDetail({
+            year: this.year,
+            make: this.make,
+            model: this.model
+        })
+            .then(function (data) {
+            // Attach retrieved data to scope
+            _this.styles = data.styles;
+            _this.currentStyle = data.styles[0];
+            //                this.getVehiclePhoto(this.currentStyle.id);
+        });
+        this.vehicleSliderOptions = {
+            loop: true,
+            pager: true
+        };
+    }
+    // Gets all vehicle styles for Make/Model/Year
+    VehicleDetail.prototype.getVehicleDetail = function (vehicleDetails) {
+        var _this = this;
+        this.edmunds.getVehicleDetail(vehicleDetails)
+            .then(function (data) {
+            // Attach retrieved data to scope
+            _this.currentStyle = data.styles[0];
+            console.log(_this.currentStyle);
+            //                this.getVehiclePhoto(this.currentStyle.id);
+        });
+    };
+    //Gets photo for specific style
+    VehicleDetail.prototype.getVehiclePhoto = function (styleId) {
+        this.edmunds.getPhotoByStyleId(styleId)
+            .then(function (data) {
+            // Attach retrieved data to scope
+            console.log(data);
+        });
+    };
+    VehicleDetail.prototype.ionViewDidLoad = function () {
+        // On load stuff
+    };
+    VehicleDetail = __decorate$114([
+        Component({
+            selector: 'page-vehicle-detail', template: /* ion-inline-template */ '<!--\n  Generated template for the VehicleDetail page.\n\n  See http://ionicframework.com/docs/v2/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n    <ion-navbar>\n        <ion-title>Vehicle Detail</ion-title>\n    </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n    <div *ngIf="currentStyle">\n        <!--\n        <ion-card>\n\n            <img src="http://drewphillipsphotography.com/blog/wp-content/uploads/2016/04/ams-alpha-10-audi-r8.jpg" />\n            \n\n            \n        <ion-item *ngIf="styles && currentStyle" class="style-select">\n\n            <ion-select [(ngModel)]="currentStyle">\n                <ion-option value="style" selectedText="style.name" *ngFor="let style of styles">{{style.name}}</ion-option>\n\n            </ion-select>\n        </ion-item>\n\n        </ion-card>\n-->\n        <ion-slides pager [options]="vehicleSliderOptions">\n\n            <ion-slide>\n                <img src="http://drewphillipsphotography.com/blog/wp-content/uploads/2016/04/ams-alpha-10-audi-r8.jpg" />\n            </ion-slide>\n\n            <ion-slide>\n                <img src="http://drewphillipsphotography.com/blog/wp-content/uploads/2016/04/ams-alpha-10-audi-r8.jpg" />\n            </ion-slide>\n\n            <ion-slide>\n                <img src="http://drewphillipsphotography.com/blog/wp-content/uploads/2016/04/ams-alpha-10-audi-r8.jpg" />\n            </ion-slide>\n\n        </ion-slides>\n        <ion-item class="detail-card">\n            <span class="name">\n                {{year}} {{make}} {{model}}\n            </span>\n\n            <ion-icon name="images" class="right"></ion-icon>\n            <span class="right">\n                gallery\n            </span>\n        </ion-item>\n        <!-- MPG Info -->\n        <ion-card *ngIf="currentStyle.MPG" class="no-margin-top">\n            <ion-row>\n                <ion-col width-20 class="detail">\n                    <div class="detail-label">\n                        <ion-icon name="leaf" class="light-green"></ion-icon>\n                        <h1>Mpg</h1>\n                    </div>\n                </ion-col>\n                <ion-col width-40 class="detail">\n                    <div class="detail-content border-right">\n                        <h1 *ngIf="currentStyle.MPG.city">{{currentStyle.MPG.city}}</h1>\n                        <h1 *ngIf="!currentStyle.MPG.city">-</h1>\n                        <h2>City</h2>\n                    </div>\n                </ion-col>\n                <ion-col width-40 class="detail">\n                    <div class="detail-content">\n                        <h1>{{currentStyle.MPG.highway}}</h1>\n                        <h1 *ngIf="!currentStyle.MPG.highway">-</h1>\n                        <h2>Highway</h2>\n                    </div>\n                </ion-col>\n            </ion-row>\n        </ion-card>\n\n        <!-- Cost Info -->\n        <ion-card *ngIf="currentStyle.price">\n            <ion-row>\n                <ion-col width-20 class="detail">\n                    <div class="detail-label">\n                        <ion-icon name="logo-usd" class="dark-green"></ion-icon>\n                        <h1>Price</h1>\n                    </div>\n                </ion-col>\n                <ion-col width-40 class="detail">\n                    <div class="detail-content border-right">\n                        <h1 *ngIf="currentStyle.price.baseInvoice">{{currentStyle.price.baseInvoice | currency:\'USD\':true:\'1.0-0\'}}</h1>\n                        <h1 *ngIf="!currentStyle.price.baseInvoice">-</h1>\n                        <h2>AVG Price</h2>\n                    </div>\n                </ion-col>\n\n                <ion-col width-40 class="detail">\n                    <div class="detail-content">\n                        <h1 *ngIf="currentStyle.price.baseMSRP">{{currentStyle.price.baseMSRP | currency:\'USD\':true:\'1.0-0\'}}</h1>\n                        <h1 *ngIf="!currentStyle.price.baseMSRP">-</h1>\n                        <h2>MSRP</h2>\n                    </div>\n                </ion-col>\n            </ion-row>\n        </ion-card>\n\n        <!-- Power Info -->\n        <ion-card *ngIf="currentStyle.engine">\n            <ion-row>\n                <ion-col width-20 class="detail">\n                    <div class="detail-label">\n                        <ion-icon name="speedometer" class="red"></ion-icon>\n                        <h1>Power</h1>\n                    </div>\n                </ion-col>\n                <ion-col width-40 class="detail">\n                    <div class="detail-content border-right">\n                        <h1 *ngIf="currentStyle.engine.torque">{{currentStyle.engine.torque}}</h1>\n                        <h1 *ngIf="!currentStyle.engine.torque">-</h1>\n                        <h2>FT/LBS Torque</h2>\n                    </div>\n                </ion-col>\n\n                <ion-col width-40 class="detail">\n                    <div class="detail-content">\n                        <h1 *ngIf="currentStyle.engine.horsepower">{{currentStyle.engine.horsepower}}</h1>\n                        <h1 *ngIf="!currentStyle.engine.horsepower">-</h1>\n                        <h2>Horse Power</h2>\n                    </div>\n                </ion-col>\n            </ion-row>\n        </ion-card>\n    </div>\n</ion-content>\n'
+        }),
+        __metadata$9('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof NavParams !== 'undefined' && NavParams) === 'function' && _b) || Object, (typeof (_c = typeof Edmunds !== 'undefined' && Edmunds) === 'function' && _c) || Object])
+    ], VehicleDetail);
+    return VehicleDetail;
+    var _a, _b, _c;
 }());
 
 /* ion-compiler */
@@ -76123,26 +76328,27 @@ var __metadata$8 = (undefined && undefined.__metadata) || function (k, v) {
 };
 var YearLookup = (function () {
     // Constructor function
-    function YearLookup(navCtrl, params) {
+    function YearLookup(navCtrl, params, edmunds) {
         this.navCtrl = navCtrl;
+        this.edmunds = edmunds;
+        // Store Page for pushing on Nav Stack
+        this.vehicleDetailPage = VehicleDetail;
         // Attach navParams to scope
-        this.years = params.data.years;
+        this.years = params.data.model.years;
+        this.make = params.data.make;
+        this.model = params.data.model.name;
     }
     YearLookup.prototype.ionViewDidLoad = function () {
         // Do some stuff on load
     };
-    // Log out year selected for now
-    YearLookup.prototype.yearSelected = function (year) {
-        console.log('You selected ' + year.year);
-    };
     YearLookup = __decorate$113([
         Component({
-            selector: 'page-year-lookup', template: /* ion-inline-template */ '<!--\n  Generated template for the YearLookup page.\n\n  See http://ionicframework.com/docs/v2/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Select A Year</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n<ion-list>\n  <ion-item *ngFor="let year of years" (click)="yearSelected(year)">\n    {{year.year}}\n  </ion-item>\n  \n</ion-list>\n</ion-content>\n'
+            selector: 'page-year-lookup', template: /* ion-inline-template */ '<!-- Year Lookup Page -->\n<ion-header>\n\n    <ion-navbar>\n        <ion-title>Select A Year</ion-title>\n    </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n    <ion-list>\n        <ion-item *ngFor="let year of years" [navPush]="vehicleDetailPage" [navParams]="{model: model, make: make, year: year}">\n            {{year.year}}\n        </ion-item>\n\n    </ion-list>\n</ion-content>\n'
         }), 
-        __metadata$8('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof NavParams !== 'undefined' && NavParams) === 'function' && _b) || Object])
+        __metadata$8('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof NavParams !== 'undefined' && NavParams) === 'function' && _b) || Object, (typeof (_c = typeof Edmunds !== 'undefined' && Edmunds) === 'function' && _c) || Object])
     ], YearLookup);
     return YearLookup;
-    var _a, _b;
+    var _a, _b, _c;
 }());
 
 /* ion-compiler */
@@ -76172,7 +76378,7 @@ var ModelLookup = (function () {
     };
     ModelLookup = __decorate$112([
         Component({
-            selector: 'page-model-lookup', template: /* ion-inline-template */ '<!--\n  Generated template for the ModelLookup page.\n\n  See http://ionicframework.com/docs/v2/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Choose A {{make}} Model</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n<ion-searchbar\n  [(ngModel)]="modelFilter" placeholder="Filter Vehicle Models">\n</ion-searchbar>\n<ion-list>\n  <ion-item *ngFor="let model of models | filter: \'name\' : modelFilter" [navPush]="yearLookupPage" [navParams]="model">\n    {{model.name}}\n  </ion-item>\n  \n</ion-list>\n\n</ion-content>\n'
+            selector: 'page-model-lookup', template: /* ion-inline-template */ '<!-- Model Lookup Page -->\n<ion-header>\n\n    <ion-navbar>\n        <ion-title>Select A Model</ion-title>\n    </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n    <ion-searchbar [(ngModel)]="modelFilter" placeholder="Filter Vehicle Models">\n    </ion-searchbar>\n    <ion-list>\n        <ion-item *ngFor="let model of models | filter: \'name\' : modelFilter" [navPush]="yearLookupPage" [navParams]="{model: model, make: make}">\n            {{model.name}}\n        </ion-item>\n\n    </ion-list>\n\n</ion-content>\n'
         }), 
         __metadata$7('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof NavParams !== 'undefined' && NavParams) === 'function' && _b) || Object])
     ], ModelLookup);
@@ -76217,7 +76423,7 @@ var MakeLookup = (function () {
     };
     MakeLookup = __decorate$111([
         Component({
-            selector: 'page-make-lookup', template: /* ion-inline-template */ '<!--\n  Generated template for the MakeLookup page.\n\n  See http://ionicframework.com/docs/v2/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Choose A Make</ion-title>\n    \n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n<ion-searchbar\n  [(ngModel)]="makeFilter" placeholder="Filter Vehicle Makes">\n</ion-searchbar>\n<!-- [showCancelButton]="shouldShowCancel"\n  (ionInput)="onInput($event)"\n  (ionCancel)="onCancel($event)" -->\n<ion-list>\n  <ion-item *ngFor="let make of makes | filter: \'name\' : makeFilter" [navPush]="modelLookupPage" [navParams]="make">\n    {{make.name}}\n  </ion-item>\n</ion-list>\n\n</ion-content>\n'
+            selector: 'page-make-lookup', template: /* ion-inline-template */ '<!-- Make Lookup Page -->\n<ion-header>\n\n    <ion-navbar>\n        <ion-title>Select A Make</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n    <ion-searchbar [(ngModel)]="makeFilter" placeholder="Filter Vehicle Makes">\n    </ion-searchbar>\n    <!-- [showCancelButton]="shouldShowCancel"\n  (ionInput)="onInput($event)"\n  (ionCancel)="onCancel($event)" -->\n    <ion-list>\n        <ion-item *ngFor="let make of makes | filter: \'name\' : makeFilter" [navPush]="modelLookupPage" [navParams]="make">\n            {{make.name}}\n        </ion-item>\n    </ion-list>\n\n</ion-content>\n'
         }),
         __metadata$6('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof Edmunds !== 'undefined' && Edmunds) === 'function' && _b) || Object])
     ], MakeLookup);
@@ -76226,13 +76432,13 @@ var MakeLookup = (function () {
 }());
 
 /* ion-compiler */
-var __decorate$114 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$115 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$9 = (undefined && undefined.__metadata) || function (k, v) {
+var __metadata$10 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var VinLookup = (function () {
@@ -76242,43 +76448,47 @@ var VinLookup = (function () {
     VinLookup.prototype.ionViewDidLoad = function () {
         console.log('Hello VinLookup Page');
     };
-    VinLookup = __decorate$114([
+    VinLookup = __decorate$115([
         Component({
             selector: 'page-vin-lookup', template: /* ion-inline-template */ '<!--\n  Generated template for the VinLookup page.\n\n  See http://ionicframework.com/docs/v2/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Search By VIN</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>\n</ion-content>\n'
         }), 
-        __metadata$9('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object])
+        __metadata$10('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object])
     ], VinLookup);
     return VinLookup;
     var _a;
 }());
 
 /* ion-compiler */
-var __decorate$110 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$116 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$5 = (undefined && undefined.__metadata) || function (k, v) {
+var __metadata$11 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var HomePage = (function () {
-    // Constructor function
-    function HomePage(navCtrl, edmunds) {
+/*
+  Generated class for the DrivingLog page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+*/
+var DrivingLog = (function () {
+    function DrivingLog(navCtrl) {
         this.navCtrl = navCtrl;
-        this.edmunds = edmunds;
-        // Pages for pushing onto Nav Stack
-        this.makeLookupPage = MakeLookup;
-        this.vinLookupPage = VinLookup;
     }
-    HomePage = __decorate$110([
+    DrivingLog.prototype.ionViewDidLoad = function () {
+        console.log('Hello DrivingLog Page');
+    };
+    DrivingLog = __decorate$116([
         Component({
-            selector: 'page-home', template: /* ion-inline-template */ '<ion-header>\n    <ion-navbar>\n        <ion-title>EDMUNDS</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n    <ion-card [navPush]="makeLookupPage">\n        <img src="http://drewphillipsphotography.com/blog/wp-content/uploads/2016/04/ams-alpha-10-audi-r8.jpg" />\n        <div class="card-title">Find A Car</div>\n        <div class="card-subtitle">Over 1.4M Listings</div>\n    </ion-card>\n\n    <ion-card [navPush]="vinLookupPage">\n        <img src="http://limousinereleasedate.com/wp-content/uploads/2016/01/2017-Honda-Civic-interior-leather-front-and-rear-seats-cabin.jpg" />\n        <div class="card-title">Search By VIN</div>\n        <div class="card-subtitle">Quickly Decode Any VIN</div>\n    </ion-card>\n\n</ion-content>'
+            selector: 'page-driving-log', template: /* ion-inline-template */ '<!--\n  Generated template for the DrivingLog page.\n\n  See http://ionicframework.com/docs/v2/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n    <ion-navbar>\n        <ion-title>Driving Log</ion-title>\n    </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n    <h1>Driving log here</h1>\n</ion-content>\n'
         }),
-        __metadata$5('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object, (typeof (_b = typeof Edmunds !== 'undefined' && Edmunds) === 'function' && _b) || Object])
-    ], HomePage);
-    return HomePage;
-    var _a, _b;
+        __metadata$11('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object])
+    ], DrivingLog);
+    return DrivingLog;
+    var _a;
 }());
 
 /* ion-compiler */
@@ -76298,9 +76508,10 @@ var TabsPage = (function () {
         this.tab1Root = HomePage;
         this.tab2Root = MakeLookup;
         this.tab3Root = VinLookup;
+        this.tab4Root = DrivingLog;
     }
     TabsPage = __decorate$109([
-        Component({ template: /* ion-inline-template */ '<ion-tabs>\n  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="Find A Car" tabIcon="car"></ion-tab>\n  <ion-tab [root]="tab3Root" tabTitle="VIN Lookup" tabIcon="search"></ion-tab>\n</ion-tabs>\n'
+        Component({ template: /* ion-inline-template */ '<ion-tabs>\n    <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>\n    <ion-tab [root]="tab2Root" tabTitle="Find A Car" tabIcon="car"></ion-tab>\n    <ion-tab [root]="tab3Root" tabTitle="VIN Lookup" tabIcon="search"></ion-tab>\n    <ion-tab [root]="tab4Root" tabTitle="Driving Log" tabIcon="stats"></ion-tab>\n</ion-tabs>\n'
         }), 
         __metadata$4('design:paramtypes', [])
     ], TabsPage);
@@ -76338,37 +76549,37 @@ var MyApp = (function () {
 }());
 
 /* ion-compiler */
-var __decorate$115 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$117 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$10 = (undefined && undefined.__metadata) || function (k, v) {
+var __metadata$12 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var AboutPage = (function () {
     function AboutPage(navCtrl) {
         this.navCtrl = navCtrl;
     }
-    AboutPage = __decorate$115([
+    AboutPage = __decorate$117([
         Component({
             selector: 'page-about', template: /* ion-inline-template */ '<ion-header>\n  <ion-navbar>\n    <ion-title>\n      About\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n</ion-content>\n'
         }),
-        __metadata$10('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object])
+        __metadata$12('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object])
     ], AboutPage);
     return AboutPage;
     var _a;
 }());
 
 /* ion-compiler */
-var __decorate$116 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$118 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$11 = (undefined && undefined.__metadata) || function (k, v) {
+var __metadata$13 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var ContactPage = (function () {
@@ -76380,29 +76591,26 @@ var ContactPage = (function () {
             timeEnds: '1990-02-20'
         };
     }
-    ContactPage = __decorate$116([
+    ContactPage = __decorate$118([
         Component({
             selector: 'page-contact', template: /* ion-inline-template */ '<ion-header>\n    <ion-navbar>\n        <ion-title>\n            Profile\n        </ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content class="card-background-page">\n\n    <div padding>\n        <ion-segment [(ngModel)]="pet">\n            <ion-segment-button value="kittens">\n                Kittens\n            </ion-segment-button>\n            <ion-segment-button value="puppies">\n                Puppies\n            </ion-segment-button>\n        </ion-segment>\n    </div>\n\n    <div [ngSwitch]="pet">\n        <ion-list *ngSwitchCase="\'puppies\'">\n            <ion-item>\n                <ion-thumbnail item-left>\n                    <img src="https://c2.staticflickr.com/4/3858/14582074136_ef4401de86_b.jpg">\n                </ion-thumbnail>\n                <h2>Ruby</h2>\n            </ion-item>\n            ...\n        </ion-list>\n\n        <ion-list *ngSwitchCase="\'kittens\'">\n            <ion-item>\n                <ion-thumbnail item-left>\n                    <img src="https://c2.staticflickr.com/4/3858/14582074136_ef4401de86_b.jpg">\n                </ion-thumbnail>\n                <h2>Luna</h2>\n            </ion-item>\n            ...\n        </ion-list>\n    </div>\n\n    <ion-list>\n        <ion-item>\n            <ion-label>Gaming</ion-label>\n            <ion-select [(ngModel)]="gaming">\n                <ion-option value="nes">NES</ion-option>\n                <ion-option value="n64">Nintendo64</ion-option>\n                <ion-option value="ps">PlayStation</ion-option>\n                <ion-option value="genesis">Sega Genesis</ion-option>\n                <ion-option value="saturn">Sega Saturn</ion-option>\n                <ion-option value="snes">SNES</ion-option>\n            </ion-select>\n        </ion-item>\n    </ion-list>\n\n    <!-- FAB -->\n    <ion-fab top right edge>\n        <button ion-fab mini>\n            <ion-icon name="add"></ion-icon>\n        </button>\n        <ion-fab-list>\n            <button ion-fab>\n                <ion-icon name="logo-facebook"></ion-icon>\n            </button>\n            <button ion-fab>\n                <ion-icon name="logo-twitter"></ion-icon>\n            </button>\n            <button ion-fab>\n                <ion-icon name="logo-vimeo"></ion-icon>\n            </button>\n            <button ion-fab>\n                <ion-icon name="logo-googleplus"></ion-icon>\n            </button>\n        </ion-fab-list>\n    </ion-fab>\n\n    <!-- DatePicker -->\n    <ion-item>\n        <ion-label>Start Time</ion-label>\n        <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>\n    </ion-item>\n\n    <!-- Simple Card -->\n    <ion-card>\n        <img src="https://c2.staticflickr.com/4/3858/14582074136_ef4401de86_b.jpg" />\n        <div class="card-title">São Paulo</div>\n        <div class="card-subtitle">41 Listings</div>\n    </ion-card>\n\n    <!-- Advanced Card -->\n    <ion-card>\n\n        <ion-item>\n            <ion-avatar item-left>\n                <img src="https://c2.staticflickr.com/4/3858/14582074136_ef4401de86_b.jpg">\n            </ion-avatar>\n            <h2>Marty McFly</h2>\n            <p>November 5, 1955</p>\n        </ion-item>\n\n        <img src="https://c2.staticflickr.com/4/3858/14582074136_ef4401de86_b.jpg">\n\n        <ion-card-content>\n            <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>\n        </ion-card-content>\n\n        <ion-row>\n            <ion-col>\n                <button primary clear small>\n                    <ion-icon name="thumbs-up"></ion-icon>\n                    <div>12 Likes</div>\n                </button>\n            </ion-col>\n            <ion-col>\n                <button primary clear small>\n                    <ion-icon name="text"></ion-icon>\n                    <div>4 Comments</div>\n                </button>\n            </ion-col>\n            <ion-col center text-center>\n                <ion-note>\n                    11h ago\n                </ion-note>\n            </ion-col>\n        </ion-row>\n\n    </ion-card>\n</ion-content>\n'
         }),
-        __metadata$11('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object])
+        __metadata$13('design:paramtypes', [(typeof (_a = typeof NavController !== 'undefined' && NavController) === 'function' && _a) || Object])
     ], ContactPage);
     return ContactPage;
     var _a;
 }());
 
 /* ion-compiler */
-var __decorate$117 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$119 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$12 = (undefined && undefined.__metadata) || function (k, v) {
+var __metadata$14 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-/*
-    A pipe that filters out items from a list that do not contain the same value as the provided string parameter.
-*/
 var FilterPipe = (function () {
     function FilterPipe() {
     }
@@ -76413,11 +76621,11 @@ var FilterPipe = (function () {
         // There are items so check for lowercase matches and return
         return items.filter(function (it) { return it[field].toLowerCase().indexOf(value.toLowerCase()) !== -1; });
     };
-    FilterPipe = __decorate$117([
+    FilterPipe = __decorate$119([
         Pipe({
             name: 'filter'
         }),
-        __metadata$12('design:paramtypes', [])
+        __metadata$14('design:paramtypes', [])
     ], FilterPipe);
     return FilterPipe;
 }());
@@ -76447,7 +76655,9 @@ var AppModule = (function () {
                 VinLookup,
                 ModelLookup,
                 YearLookup,
-                FilterPipe
+                FilterPipe,
+                VehicleDetail,
+                DrivingLog
             ],
             imports: [
                 IonicModule.forRoot(MyApp)
@@ -76462,9 +76672,11 @@ var AppModule = (function () {
                 MakeLookup,
                 VinLookup,
                 ModelLookup,
-                YearLookup
+                YearLookup,
+                VehicleDetail,
+                DrivingLog
             ],
-            providers: []
+            providers: [],
         }), 
         __metadata$$1('design:paramtypes', [])
     ], AppModule);

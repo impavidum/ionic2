@@ -1,18 +1,18 @@
 <!-- Year Lookup Page -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Select A Year</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Select A Year</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-<ion-list>
-  <ion-item *ngFor="let year of years" (click)="yearSelected(year)">
-    {{year.year}}
-  </ion-item>
+    <ion-list>
+        <ion-item *ngFor="let year of years" [navPush]="vehicleDetailPage" [navParams]="{model: model, make: make, year: year}">
+            {{year.year}}
+        </ion-item>
 
-</ion-list>
+    </ion-list>
 </ion-content>

@@ -1,0 +1,140 @@
+<!--
+  Generated template for the VehicleDetail page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Vehicle Detail</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <div *ngIf="currentStyle">
+        <!--
+        <ion-card>
+
+            <img src="http://drewphillipsphotography.com/blog/wp-content/uploads/2016/04/ams-alpha-10-audi-r8.jpg" />
+
+
+
+        <ion-item *ngIf="styles && currentStyle" class="style-select">
+
+            <ion-select [(ngModel)]="currentStyle">
+                <ion-option value="style" selectedText="style.name" *ngFor="let style of styles">{{style.name}}</ion-option>
+
+            </ion-select>
+        </ion-item>
+
+        </ion-card>
+-->
+        <ion-slides pager [options]="vehicleSliderOptions">
+
+            <ion-slide>
+                <img src="http://drewphillipsphotography.com/blog/wp-content/uploads/2016/04/ams-alpha-10-audi-r8.jpg" />
+            </ion-slide>
+
+            <ion-slide>
+                <img src="http://drewphillipsphotography.com/blog/wp-content/uploads/2016/04/ams-alpha-10-audi-r8.jpg" />
+            </ion-slide>
+
+            <ion-slide>
+                <img src="http://drewphillipsphotography.com/blog/wp-content/uploads/2016/04/ams-alpha-10-audi-r8.jpg" />
+            </ion-slide>
+
+        </ion-slides>
+        <ion-item class="detail-card">
+            <span class="name">
+                {{year}} {{make}} {{model}}
+            </span>
+
+            <ion-icon name="images" class="right"></ion-icon>
+            <span class="right">
+                gallery
+            </span>
+        </ion-item>
+        <!-- MPG Info -->
+        <ion-card *ngIf="currentStyle.MPG" class="no-margin-top">
+            <ion-row>
+                <ion-col width-20 class="detail">
+                    <div class="detail-label">
+                        <ion-icon name="leaf" class="light-green"></ion-icon>
+                        <h1>Mpg</h1>
+                    </div>
+                </ion-col>
+                <ion-col width-40 class="detail">
+                    <div class="detail-content border-right">
+                        <h1 *ngIf="currentStyle.MPG.city">{{currentStyle.MPG.city}}</h1>
+                        <h1 *ngIf="!currentStyle.MPG.city">-</h1>
+                        <h2>City</h2>
+                    </div>
+                </ion-col>
+                <ion-col width-40 class="detail">
+                    <div class="detail-content">
+                        <h1>{{currentStyle.MPG.highway}}</h1>
+                        <h1 *ngIf="!currentStyle.MPG.highway">-</h1>
+                        <h2>Highway</h2>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+
+        <!-- Cost Info -->
+        <ion-card *ngIf="currentStyle.price">
+            <ion-row>
+                <ion-col width-20 class="detail">
+                    <div class="detail-label">
+                        <ion-icon name="logo-usd" class="dark-green"></ion-icon>
+                        <h1>Price</h1>
+                    </div>
+                </ion-col>
+                <ion-col width-40 class="detail">
+                    <div class="detail-content border-right">
+                        <h1 *ngIf="currentStyle.price.baseInvoice">{{currentStyle.price.baseInvoice | currency:'USD':true:'1.0-0'}}</h1>
+                        <h1 *ngIf="!currentStyle.price.baseInvoice">-</h1>
+                        <h2>AVG Price</h2>
+                    </div>
+                </ion-col>
+
+                <ion-col width-40 class="detail">
+                    <div class="detail-content">
+                        <h1 *ngIf="currentStyle.price.baseMSRP">{{currentStyle.price.baseMSRP | currency:'USD':true:'1.0-0'}}</h1>
+                        <h1 *ngIf="!currentStyle.price.baseMSRP">-</h1>
+                        <h2>MSRP</h2>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+
+        <!-- Power Info -->
+        <ion-card *ngIf="currentStyle.engine">
+            <ion-row>
+                <ion-col width-20 class="detail">
+                    <div class="detail-label">
+                        <ion-icon name="speedometer" class="red"></ion-icon>
+                        <h1>Power</h1>
+                    </div>
+                </ion-col>
+                <ion-col width-40 class="detail">
+                    <div class="detail-content border-right">
+                        <h1 *ngIf="currentStyle.engine.torque">{{currentStyle.engine.torque}}</h1>
+                        <h1 *ngIf="!currentStyle.engine.torque">-</h1>
+                        <h2>FT/LBS Torque</h2>
+                    </div>
+                </ion-col>
+
+                <ion-col width-40 class="detail">
+                    <div class="detail-content">
+                        <h1 *ngIf="currentStyle.engine.horsepower">{{currentStyle.engine.horsepower}}</h1>
+                        <h1 *ngIf="!currentStyle.engine.horsepower">-</h1>
+                        <h2>Horse Power</h2>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+    </div>
+</ion-content>

@@ -1,22 +1,55 @@
-import { NgModule } from '@angular/core';
-import { IonicApp, IonicModule } from 'ionic-angular';
-import { MyApp } from './app.component';
+import {
+    NgModule
+} from '@angular/core';
+import {
+    IonicApp,
+    IonicModule
+} from 'ionic-angular';
+import {
+    MyApp
+} from './app.component';
+
 
 // Pages
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
-import { MakeLookup } from '../pages/make-lookup/make-lookup';
-import { ModelLookup } from '../pages/model-lookup/model-lookup';
-import { YearLookup } from '../pages/year-lookup/year-lookup';
-import { VinLookup } from '../pages/vin-lookup/vin-lookup';
+import {
+    AboutPage
+} from '../pages/about/about';
+import {
+    ContactPage
+} from '../pages/contact/contact';
+import {
+    HomePage
+} from '../pages/home/home';
+import {
+    TabsPage
+} from '../pages/tabs/tabs';
+import {
+    MakeLookup
+} from '../pages/make-lookup/make-lookup';
+import {
+    ModelLookup
+} from '../pages/model-lookup/model-lookup';
+import {
+    YearLookup
+} from '../pages/year-lookup/year-lookup';
+import {
+    VinLookup
+} from '../pages/vin-lookup/vin-lookup';
+import {
+    VehicleDetail
+} from '../pages/vehicle-detail/vehicle-detail';
+
+import {
+    DrivingLog
+} from '../pages/driving-log/driving-log';
 
 // Pipes
-import {FilterPipe} from '../pipes/filter';
+import {
+    FilterPipe
+} from '../pipes/filter.pipe';
 
 @NgModule({
-  declarations: [
+    declarations: [
     MyApp,
     AboutPage,
     ContactPage,
@@ -26,13 +59,15 @@ import {FilterPipe} from '../pipes/filter';
     VinLookup,
     ModelLookup,
     YearLookup,
-    FilterPipe
+    FilterPipe,
+    VehicleDetail,
+    DrivingLog
   ],
-  imports: [
+    imports: [
     IonicModule.forRoot(MyApp)
   ],
-  bootstrap: [IonicApp],
-  entryComponents: [
+    bootstrap: [IonicApp],
+    entryComponents: [
     MyApp,
     AboutPage,
     ContactPage,
@@ -41,8 +76,10 @@ import {FilterPipe} from '../pipes/filter';
     MakeLookup,
     VinLookup,
     ModelLookup,
-    YearLookup
+    YearLookup,
+    VehicleDetail,
+    DrivingLog
   ],
-  providers: []
+    providers: [],
 })
 export class AppModule {}

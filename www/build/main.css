@@ -21084,6 +21084,10 @@ sub {
   }
 }
 
+ion-title .toolbar-title {
+  color: #424240;
+}
+
 page-contact .card-background-page ion-card {
   position: relative;
   text-align: center;
@@ -21130,4 +21134,111 @@ page-home .card-subtitle {
   top: 52%;
   width: 100%;
   color: #fff;
+}
+
+page-make-lookup ion-item {
+  color: #424240;
+}
+
+page-vehicle-detail .detail-card .item-inner {
+  border-bottom: 0 !important;
+}
+
+page-vehicle-detail .detail-card span {
+  margin-right: .5em;
+}
+
+page-vehicle-detail .detail-card .name {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #424240;
+}
+
+page-vehicle-detail .detail-card .right {
+  float: right;
+  color: #95A5A6;
+}
+
+page-vehicle-detail .style-select {
+  padding-left: 0;
+}
+
+page-vehicle-detail .style-select ion-select {
+  padding: 10px;
+  max-width: 100%;
+}
+
+page-vehicle-detail .detail {
+  text-align: center;
+  position: relative;
+  height: 6.5em;
+}
+
+page-vehicle-detail .detail .detail-label {
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+page-vehicle-detail .detail .detail-label ion-icon {
+  color: #ccd4d5;
+  font-size: 2em;
+}
+
+page-vehicle-detail .detail .detail-label h1 {
+  font-size: .9em;
+  font-weight: bold;
+  color: #95A5A6;
+}
+
+page-vehicle-detail .detail .detail-label .light-green {
+  color: limegreen;
+}
+
+page-vehicle-detail .detail .detail-label .dark-green {
+  color: green;
+}
+
+page-vehicle-detail .detail .detail-label .red {
+  color: orangered;
+}
+
+page-vehicle-detail .detail .detail-content {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+page-vehicle-detail .detail .detail-content h1 {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #6c6e6c;
+}
+
+page-vehicle-detail .detail .detail-content h2 {
+  font-size: 1em;
+  color: #95A5A6;
+  text-transform: lowercase;
+}
+
+page-vehicle-detail .detail img {
+  height: 20px;
+  width: auto;
+}
+
+page-vehicle-detail .border-right {
+  border-right: 1px solid #DADFE1;
+}
+
+page-vehicle-detail .no-margin-top {
+  margin-top: 3px;
 }

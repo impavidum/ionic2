@@ -6,16 +6,22 @@
 
 <ion-content>
 
-    <ion-card [navPush]="makeLookupPage">
+    <ion-card (click)="findACar()">
         <img src="http://drewphillipsphotography.com/blog/wp-content/uploads/2016/04/ams-alpha-10-audi-r8.jpg" />
         <div class="card-title">Find A Car</div>
         <div class="card-subtitle">Over 1.4M Listings</div>
     </ion-card>
 
-    <ion-card [navPush]="vinLookupPage">
+    <ion-card (click)="searchVin()">
         <img src="http://limousinereleasedate.com/wp-content/uploads/2016/01/2017-Honda-Civic-interior-leather-front-and-rear-seats-cabin.jpg" />
         <div class="card-title">Search By VIN</div>
         <div class="card-subtitle">Quickly Decode Any VIN</div>
+    </ion-card>
+
+    <ion-card (click)="searchVin()">
+        <img src="https://images.unsplash.com/photo-1473445730015-841f29a9490b?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=e3a4a4ad1d2a90dc14e8e97e9d1c4120" />
+        <div class="card-title">Check My Driving</div>
+        <div class="card-subtitle">View Driving Quality Log</div>
     </ion-card>
 
 </ion-content>

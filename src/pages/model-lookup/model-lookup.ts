@@ -1,16 +1,23 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {
+    Component
+} from '@angular/core';
+import {
+    NavController,
+    NavParams
+} from 'ionic-angular';
 
 // Pages
-import {YearLookup} from '../year-lookup/year-lookup';
+import {
+    YearLookup
+} from '../year-lookup/year-lookup';
 
 /*
   Provides a list of models give a vehicle make
   Passes Make and Model to YearLookupPage
 */
 @Component({
-  selector: 'page-model-lookup',
-  templateUrl: 'model-lookup.html'
+    selector: 'page-model-lookup',
+    templateUrl: 'model-lookup.html'
 })
 
 export class ModelLookup {
@@ -34,4 +41,3 @@ export class ModelLookup {
     }
 
 }
-

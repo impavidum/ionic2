@@ -6,6 +6,10 @@ import {
     NavParams
 } from 'ionic-angular';
 
+// Providers
+import {
+    DriversLog
+} from '../../providers/drivers-log';
 
 // echarts
 import * as echarts from '../../assets/echarts/echarts'
@@ -23,87 +27,51 @@ import * as echarts from '../../assets/echarts/echarts'
 
 export class DrivingLog {
 
-    constructor(public navCtrl: NavController, params: NavParams) {
-        console.log(params);
-        this.driver = params.data;
+    constructor(public navCtrl: NavController, private params: NavParams) {
+        this.log = params.data;
+
+        //        this.Log = params.log;
     }
 
     ngOnInit() {
 
         // Create Chart
-        let basic_lines = echarts.default.init(document.getElementById('chart'));
+        let basic_lines = echarts.default.init(document.getElementById('line-chart'));
 
         // Chart Options
+        var base = +new Date(1968, 9, 3);
+        var oneDay = 24 * 3600 * 1000;
+        var date = [];
+
+        var data = [Math.random() * 300];
+
+        for (var i = 1; i < 20000; i++) {
+            var now = new Date(base += oneDay);
+            date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
+            data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
+        }
+
         let option = {
-            color: ['#34314c'],
-            //            tooltip: {
-            //                trigger: 'axis',
-            //                axisPointer: {
-            //                    type: 'shadow'
-            //                }
-            //            },
-            tooltip: {
-                show: false
-                    //                formatter: function (params) {
-                    //                    return '<b>' + params[0].data '</b> on ' + params[0].name;
-                    //                },
-                    //                trigger: 'axis',
-                    //                backgroundColor: 'white',
-                    //                textStyle: {
-                    //                    color: color.mdgrey
-                    //                },
-                    //                extraCssText: ' box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);background-color: white;color:' + color.mdgrey + ';font-size: 1.1em;',
-                    //                axisPointer: {
-                    //                    type: 'shadow',
-                    //                    lineStyle: {
-                    //                        color: color.ltgrey,
-                    //                        type: 'solid'
-                    //                    },
-                    //                    crossStyle: {
-                    //                        color: '#27727B'
-                    //                    },
-                    //                    shadowStyle: {
-                    //                        color: 'rgba(200,200,200,0.3)'
-                    //                    }
-                    //                }
+            title: {
+                show: false,
             },
+            tooltip: {
+                show: false,
+                trigger: 'axis'
+            },
+
             grid: {
-                left: '0',
-                top: '0',
-                right: '0',
-                bottom: '32',
-                containLabel: false
+                left: '3%',
+                right: '5%',
+                bottom: '3%',
+                top: '3%',
+                containLabel: true
             },
             xAxis: [
                 {
                     type: 'category',
-                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                    axisTick: {
-                        alignWithLabel: true,
-                        show: false
-                    },
-                    splitLine: {
-                        show: false,
-                        lineStyle: {
-                            color: ['red']
-                        }
-
-                    },
-                    axisLine: {
-                        show: false
-                    }
-
-                        }
-                    ],
-            yAxis: [
-                {
-                    type: 'value',
-                    splitLine: {
-                        lineStyle: {
-                            color: ['#e7e7e7']
-                        }
-
-                    },
+                    boundaryGap: false,
+                    data: ['0:30', '1:00', '1:30', '2: 00', '2:30', '3:00', '4:00', '4:30', '5:00', '5:30', '6:00', '6:30', '7:00', '7:30', '8:00'],
                     axisLine: {
                         show: false
                     },
@@ -112,43 +80,37 @@ export class DrivingLog {
                     },
                     axisLabel: {
                         show: false
+                    }
+        }
+    ],
+            yAxis: [
+                {
+                    type: 'value',
+                    axisLine: {
+                        show: false
                     },
-
-                    max: 100
-                        }
-                    ],
+                    axisTick: {
+                        show: false
+                    }
+        }
+    ],
             series: [
                 {
-                    name: 'Driving Quality',
-                    type: 'bar',
-                    animationDelay: function (idx) {
-                        return idx * 100;
-                    },
-                    label: {
+                    name: 'Speed',
+                    type: 'line',
+                    areaStyle: {
                         normal: {
-                            show: true,
-                            position: 'insideTop',
-                            formatter: function (params) {
-                                if (!params.data) {
-                                    return '-';
-                                } else if (params.data > 79) {
-                                    return 'A';
-                                } else if (params.data > 59) {
-                                    return 'B';
-                                } else if (params.data > 39) {
-                                    return 'C';
-                                } else if (params.data > 19) {
-                                    return 'D';
-                                } else {
-                                    return 'F';
-                                }
-                            }
+                            color: '#e7e7e7'
                         }
                     },
-                    barWidth: '60%',
-                    data: [38, 57, 75, 69, 90, 75, 95]
+                    lineStyle: {
+                        normal: {
+                            color: '#34314c'
                         }
-                    ]
+                    },
+                    data: [30, 32, 38, 45, 39, 50, 55, 59, 51, 40, 35, 46, 47, 53, 55]
+        }
+    ]
         };
 
         // Build Chart

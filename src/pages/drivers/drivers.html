@@ -17,7 +17,7 @@
     <ion-searchbar [(ngModel)]="driverFilter" placeholder="Search for a driver">
     </ion-searchbar>
     <ion-list>
-        <ion-item *ngFor="let driver of drivers | orderBy : 'avg_score' | filter: 'name' : driverFilter" [navPush]="drivingLogPage" [navParams]="driver">
+        <ion-item *ngFor="let driver of drivers | orderBy : 'avg_score' | filter: 'name' : driverFilter" [navPush]="driverProfilePage" [navParams]="driver">
             <ion-thumbnail item-left>
                 <img [src]="driver.avatar">
             </ion-thumbnail>

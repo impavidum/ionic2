@@ -5,4 +5,11 @@ page-driving-log {
         margin-top: 2.5em;
         margin-left: 12px;
     }
+    ion-item {
+        span {
+            color: $mdgrey;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+        }
+    }
 }

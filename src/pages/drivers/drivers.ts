@@ -7,8 +7,8 @@ import {
 
 // Pages
 import {
-    DrivingLog
-} from '../driving-log/driving-log';
+    DriverProfile
+} from '../driver-profile/driver-profile';
 
 // Providers
 import {
@@ -27,7 +27,7 @@ import {
 })
 export class Drivers {
 
-    drivingLogPage = DrivingLog;
+    driverProfilePage = DriverProfile;
 
     constructor(public navCtrl: NavController, private driversList: DriversList) {
         this.a = 79;

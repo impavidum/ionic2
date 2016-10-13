@@ -21110,6 +21110,66 @@ page-contact .card-background-page .card-subtitle {
   color: #fff;
 }
 
+page-driver-profile h1 {
+  color: #8c8e8f;
+  font-size: 1em;
+  margin-top: 2.5em;
+  margin-left: 12px;
+}
+
+page-driver-profile ion-item ion-avatar {
+  position: relative !important;
+}
+
+page-driver-profile ion-item ion-avatar .date {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  color: #8c8e8f;
+  font-weight: bold;
+}
+
+page-driver-profile ion-item h2 {
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+}
+
+page-driver-profile ion-item h3 {
+  color: #494949;
+  font-size: 1.15rem !important;
+}
+
+page-driver-profile ion-item p {
+  font-size: 1rem !important;
+  text-transform: uppercase;
+  color: #494949;
+}
+
+page-driver-profile ion-item .a {
+  color: green;
+}
+
+page-driver-profile ion-item .b {
+  color: limegreen;
+}
+
+page-driver-profile ion-item .c {
+  color: orangered;
+}
+
+page-driver-profile ion-item .d {
+  color: red;
+}
+
+page-driver-profile ion-item .company-name {
+  font-size: .8rem;
+  text-transform: capitalize;
+  color: #8c8e8f;
+}
+
 page-drivers ion-item ion-thumbnail img {
   border-radius: 50%;
 }

@@ -13,9 +13,14 @@ import {
 import {
     Edmunds
 } from '../providers/edmunds';
+
 import {
     DriversList
 } from '../providers/drivers-list';
+
+import {
+    DriversLog
+} from '../providers/drivers-log';
 
 // Pages
 import {
@@ -25,7 +30,7 @@ import {
 
 @Component({
     template: `<ion-nav [root]="rootPage"></ion-nav>`,
-    providers: [Edmunds, DriversList]
+    providers: [Edmunds, DriversList, DriversLog]
 })
 export class MyApp {
     rootPage = TabsPage;

@@ -47,6 +47,12 @@ import {
     Drivers
 } from '../pages/drivers/drivers';
 
+import {
+    DriverProfile
+} from '../pages/driver-profile/driver-profile';
+
+
+
 // Pipes
 import {
     FilterPipe
@@ -59,6 +65,8 @@ import {
 import {
     DriverScore
 } from '../pipes/driver-score.pipe';
+
+
 
 @NgModule({
     declarations: [
@@ -76,7 +84,8 @@ import {
     DriverScore,
     VehicleDetail,
     DrivingLog,
-    Drivers
+    Drivers,
+    DriverProfile
   ],
     imports: [
     IonicModule.forRoot(MyApp)
@@ -94,7 +103,8 @@ import {
     YearLookup,
     VehicleDetail,
     DrivingLog,
-    Drivers
+    Drivers,
+    DriverProfile
   ],
     providers: [],
 })
